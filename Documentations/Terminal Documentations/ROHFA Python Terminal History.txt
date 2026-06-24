@@ -1,0 +1,139 @@
+Last login: Mon Jun 22 19:51:13 on ttys000
+karthickraja@Karthicks-Mac ~ % python3 --version
+Python 3.11.9
+karthickraja@Karthicks-Mac ~ % pip3 install pandas mysql-connector-python openpyxl
+Requirement already satisfied: pandas in /Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages (3.0.3)
+Collecting mysql-connector-python
+  Downloading mysql_connector_python-9.7.0-cp311-cp311-macosx_14_0_arm64.whl.metadata (11 kB)
+Collecting openpyxl
+  Downloading openpyxl-3.1.5-py2.py3-none-any.whl.metadata (2.5 kB)
+Requirement already satisfied: numpy>=1.26.0 in /Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages (from pandas) (2.4.6)
+Requirement already satisfied: python-dateutil>=2.8.2 in /Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages (from pandas) (2.9.0.post0)
+Collecting et-xmlfile (from openpyxl)
+  Downloading et_xmlfile-2.0.0-py3-none-any.whl.metadata (2.7 kB)
+Requirement already satisfied: six>=1.5 in /Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages (from python-dateutil>=2.8.2->pandas) (1.17.0)
+Downloading mysql_connector_python-9.7.0-cp311-cp311-macosx_14_0_arm64.whl (20.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 20.3/20.3 MB 3.8 MB/s eta 0:00:00
+Downloading openpyxl-3.1.5-py2.py3-none-any.whl (250 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 250.9/250.9 kB 6.1 MB/s eta 0:00:00
+Downloading et_xmlfile-2.0.0-py3-none-any.whl (18 kB)
+Installing collected packages: mysql-connector-python, et-xmlfile, openpyxl
+Successfully installed et-xmlfile-2.0.0 mysql-connector-python-9.7.0 openpyxl-3.1.5
+
+[notice] A new release of pip is available: 24.0 -> 26.1.2
+[notice] To update, run: pip3 install --upgrade pip
+karthickraja@Karthicks-Mac ~ % pip3 list | grep mysql
+mysql-connector-python 9.7.0
+
+[notice] A new release of pip is available: 24.0 -> 26.1.2
+[notice] To update, run: pip3 install --upgrade pip
+karthickraja@Karthicks-Mac ~ % pip3 list | grep pandas
+pandas                 3.0.3
+
+[notice] A new release of pip is available: 24.0 -> 26.1.2
+[notice] To update, run: pip3 install --upgrade pip
+karthickraja@Karthicks-Mac ~ % cd path/to/Recruitment_Analytics_Project/Python
+cd: no such file or directory: path/to/Recruitment_Analytics_Project/Python
+karthickraja@Karthicks-Mac ~ % cd Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python
+karthickraja@Karthicks-Mac Python % python3 test_connection.py
+Database Connected Successfully!
+karthickraja@Karthicks-Mac Python % python3 recruitment_report.py
+/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/recruitment_report.py:30: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  applications = pd.read_sql(applications_query, conn)
+/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/recruitment_report.py:31: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  interviews = pd.read_sql(interviews_query, conn)
+/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/recruitment_report.py:32: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  offers = pd.read_sql(offers_query, conn)
+/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/recruitment_report.py:33: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  hires = pd.read_sql(hires_query, conn)
+
+RECRUITMENT KPI REPORT
+========================================
+Total Applications : 15
+Total Interviews   : 7
+Total Offers       : 6
+Total Hires        : 5
+karthickraja@Karthicks-Mac Python % python3 recruitment_report.py
+/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/recruitment_report.py:6: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  applications = pd.read_sql(
+/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/recruitment_report.py:11: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  interviews = pd.read_sql(
+/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/recruitment_report.py:16: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  offers = pd.read_sql(
+/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/recruitment_report.py:21: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  hires = pd.read_sql(
+
+RECRUITMENT FUNNEL REPORT
+==================================================
+Applications      : 15
+Interviews        : 7
+Offers            : 6
+Hires             : 5
+
+CONVERSION RATES
+--------------------------------------------------
+App → Interview : 46.67%
+Interview → Offer : 85.71%
+Offer → Hire : 83.33%
+karthickraja@Karthicks-Mac Python % python3 export_reports.py
+/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/export_reports.py:28: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn)
+
+Report Generated Successfully!
+File: ../Data/Recruitment_KPI_Report.xlsx
+karthickraja@Karthicks-Mac Python % python3 export_dashboard_data.py
+/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/export_dashboard_data.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn)
+/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/export_dashboard_data.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn)
+/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/export_dashboard_data.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn)
+/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/export_dashboard_data.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn)
+Dashboard data exported successfully.
+karthickraja@Karthicks-Mac Python % python3 export_dashboard_data.py
+  File "/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/export_dashboard_data.py", line 58
+    "Recruiter_Performance":
+                           ^
+SyntaxError: invalid syntax
+karthickraja@Karthicks-Mac Python % karthickraja@Karthicks-Mac Python % python3 export_dashboard_data.py
+  File "/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/export_dashboard_data.py", line 58
+    "Recruiter_Performance":
+                           ^
+SyntaxError: invalid syntax
+karthickraja@Karthicks-Mac Python %  python3 export_dashboard_data.py
+zsh: command not found: karthickraja@Karthicks-Mac
+/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/export_dashboard_data.py,: cannot open `/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/export_dashboard_data.py,' (No such file or directory)
+line:                                                                                                                       cannot open `line' (No such file or directory)
+58:                                                                                                                         cannot open `58' (No such file or directory)
+zsh: command not found: Recruiter_Performance:
+zsh: command not found: ^
+zsh: command not found: SyntaxError:
+zsh: command not found: karthickraja@Karthicks-Mac
+karthickraja@Karthicks-Mac Python % python3 export_dashboard_data.py
+/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/export_dashboard_data.py:72: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn)
+/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/export_dashboard_data.py:72: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn)
+/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/export_dashboard_data.py:72: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn)
+/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/export_dashboard_data.py:72: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn)
+/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/export_dashboard_data.py:72: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn)
+Dashboard data exported successfully.
+karthickraja@Karthicks-Mac Python % python3 export_dashboard_data.py
+/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/export_dashboard_data.py:95: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn)
+/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/export_dashboard_data.py:95: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn)
+/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/export_dashboard_data.py:95: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn)
+/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/export_dashboard_data.py:95: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn)
+/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/export_dashboard_data.py:95: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn)
+/Users/karthickraja/Desktop/PMOPs/Projects/Recruitment-Operations-Hiring-Funnel-Analytics/Python/export_dashboard_data.py:95: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn)
+Dashboard data exported successfully.
+karthickraja@Karthicks-Mac Python % 

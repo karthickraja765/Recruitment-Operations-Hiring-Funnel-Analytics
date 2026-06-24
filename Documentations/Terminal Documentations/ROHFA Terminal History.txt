@@ -1,0 +1,1253 @@
+Last login: Fri Jun 19 17:32:31 on ttys001
+karthickraja@Karthicks-Mac ~ % mysql --version
+zsh: command not found: mysql
+karthickraja@Karthicks-Mac ~ % mysql --version
+zsh: command not found: mysql
+karthickraja@Karthicks-Mac ~ % which mysql
+mysql not found
+karthickraja@Karthicks-Mac ~ % brew --version
+zsh: command not found: brew
+karthickraja@Karthicks-Mac ~ % ls /usr/local/mysql/bin/mysql
+/usr/local/mysql/bin/mysql
+karthickraja@Karthicks-Mac ~ %  mysql --version
+zsh: command not found: mysql
+karthickraja@Karthicks-Mac ~ % mysql --version
+zsh: command not found: mysql
+karthickraja@Karthicks-Mac ~ % /usr/local/mysql/bin/mysql --version
+/usr/local/mysql/bin/mysql  Ver 9.7.1 for macos15 on arm64 (MySQL Community Server - GPL)
+karthickraja@Karthicks-Mac ~ % /usr/local/mysql/bin/mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 9.7.1 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.040 sec)
+
+mysql> CREATE DATABASE Recruitment_Analytics_DB;
+Query OK, 1 row affected (0.015 sec)
+
+mysql> SHOW DATABASES;
++--------------------------+
+| Database                 |
++--------------------------+
+| information_schema       |
+| mysql                    |
+| performance_schema       |
+| Recruitment_Analytics_DB |
+| sys                      |
++--------------------------+
+5 rows in set (0.002 sec)
+
+mysql> USE Recruitment_Analytics_DB;
+Database changed
+mysql> SELECT DATABASE();
++--------------------------+
+| DATABASE()               |
++--------------------------+
+| recruitment_analytics_db |
++--------------------------+
+1 row in set (0.000 sec)
+
+mysql> SHOW TABLES;
+Empty set (0.005 sec)
+
+mysql> CREATE TABLE Students (
+    ->     Student_ID INT PRIMARY KEY,
+    ->     Student_Name VARCHAR(100) NOT NULL,
+    ->     Gender VARCHAR(10) NOT NULL,
+    ->     Department VARCHAR(50) NOT NULL,
+    ->     CGPA DECIMAL(3,2) NOT NULL,
+    ->     Graduation_Year INT NOT NULL,
+    ->     Email VARCHAR(100) NOT NULL,
+    ->     Phone_Number VARCHAR(15)
+    -> );
+Query OK, 0 rows affected (0.069 sec)
+
+mysql> SHOW TABLES;
++------------------------------------+
+| Tables_in_recruitment_analytics_db |
++------------------------------------+
+| Students                           |
++------------------------------------+
+1 row in set (0.018 sec)
+
+mysql> DESCRIBE Students;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| Student_ID      | int          | NO   | PRI | NULL    |       |
+| Student_Name    | varchar(100) | NO   |     | NULL    |       |
+| Gender          | varchar(10)  | NO   |     | NULL    |       |
+| Department      | varchar(50)  | NO   |     | NULL    |       |
+| CGPA            | decimal(3,2) | NO   |     | NULL    |       |
+| Graduation_Year | int          | NO   |     | NULL    |       |
+| Email           | varchar(100) | NO   |     | NULL    |       |
+| Phone_Number    | varchar(15)  | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+8 rows in set (0.014 sec)
+
+mysql> INSERT INTO Students
+    -> (
+    ->     Student_ID,
+    ->     Student_Name,
+    ->     Gender,
+    ->     Department,
+    ->     CGPA,
+    ->     Graduation_Year,
+    ->     Email,
+    ->     Phone_Number
+    -> )
+    -> VALUES
+    -> (
+    ->     1001,
+    ->     'Karthick Raja',
+    ->     'Male',
+    ->     'Computer Science',
+    ->     8.75,
+    ->     2026,
+    ->     'karthick@example.com',
+    ->     '9876543210'
+    -> );
+Query OK, 1 row affected (0.013 sec)
+
+mysql> SELECT * FROM Students;
++------------+---------------+--------+------------------+------+-----------------+----------------------+--------------+
+| Student_ID | Student_Name  | Gender | Department       | CGPA | Graduation_Year | Email                | Phone_Number |
++------------+---------------+--------+------------------+------+-----------------+----------------------+--------------+
+|       1001 | Karthick Raja | Male   | Computer Science | 8.75 |            2026 | karthick@example.com | 9876543210   |
++------------+---------------+--------+------------------+------+-----------------+----------------------+--------------+
+1 row in set (0.001 sec)
+
+mysql> SELECT Student_Name, CGPA
+    -> FROM Students;
++---------------+------+
+| Student_Name  | CGPA |
++---------------+------+
+| Karthick Raja | 8.75 |
++---------------+------+
+1 row in set (0.001 sec)
+
+mysql> SELECT *
+    -> FROM Students
+    -> WHERE Student_ID = 1001;
++------------+---------------+--------+------------------+------+-----------------+----------------------+--------------+
+| Student_ID | Student_Name  | Gender | Department       | CGPA | Graduation_Year | Email                | Phone_Number |
++------------+---------------+--------+------------------+------+-----------------+----------------------+--------------+
+|       1001 | Karthick Raja | Male   | Computer Science | 8.75 |            2026 | karthick@example.com | 9876543210   |
++------------+---------------+--------+------------------+------+-----------------+----------------------+--------------+
+1 row in set (0.002 sec)
+
+mysql> SELECT Student_Name, Department
+    -> FROM Students
+    -> WHERE CGPA > 8.0;
++---------------+------------------+
+| Student_Name  | Department       |
++---------------+------------------+
+| Karthick Raja | Computer Science |
++---------------+------------------+
+1 row in set (0.001 sec)
+
+mysql> INSERT INTO Students
+    -> VALUES
+    -> (
+    -> 1002,
+    -> 'Priya Sharma',
+    -> 'Female',
+    -> 'Information Technology',
+    -> 9.10,
+    -> 2026,
+    -> 'priya@example.com',
+    -> '9876543211'
+    -> ),
+    -> (
+    -> 1003,
+    -> 'Arjun Kumar',
+    -> 'Male',
+    -> 'Electronics',
+    -> 7.85,
+    -> 2026,
+    -> 'arjun@example.com',
+    -> '9876543212'
+    -> ),
+    -> (
+    -> 1004,
+    -> 'Meera Nair',
+    -> 'Female',
+    -> 'Computer Science',
+    -> 8.20,
+    -> 2026,
+    -> 'meera@example.com',
+    -> '9876543213'
+    -> );
+Query OK, 3 rows affected (0.051 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT *
+    -> FROM Students;
++------------+---------------+--------+------------------------+------+-----------------+----------------------+--------------+
+| Student_ID | Student_Name  | Gender | Department             | CGPA | Graduation_Year | Email                | Phone_Number |
++------------+---------------+--------+------------------------+------+-----------------+----------------------+--------------+
+|       1001 | Karthick Raja | Male   | Computer Science       | 8.75 |            2026 | karthick@example.com | 9876543210   |
+|       1002 | Priya Sharma  | Female | Information Technology | 9.10 |            2026 | priya@example.com    | 9876543211   |
+|       1003 | Arjun Kumar   | Male   | Electronics            | 7.85 |            2026 | arjun@example.com    | 9876543212   |
+|       1004 | Meera Nair    | Female | Computer Science       | 8.20 |            2026 | meera@example.com    | 9876543213   |
++------------+---------------+--------+------------------------+------+-----------------+----------------------+--------------+
+4 rows in set (0.008 sec)
+
+mysql> SELECT Student_Name, CGPA
+    -> FROM Students
+    -> ORDER BY CGPA;
++---------------+------+
+| Student_Name  | CGPA |
++---------------+------+
+| Arjun Kumar   | 7.85 |
+| Meera Nair    | 8.20 |
+| Karthick Raja | 8.75 |
+| Priya Sharma  | 9.10 |
++---------------+------+
+4 rows in set (0.005 sec)
+
+mysql> SELECT Student_Name, CGPA
+    -> FROM Students
+    -> ORDER BY CGPA DESC;
++---------------+------+
+| Student_Name  | CGPA |
++---------------+------+
+| Priya Sharma  | 9.10 |
+| Karthick Raja | 8.75 |
+| Meera Nair    | 8.20 |
+| Arjun Kumar   | 7.85 |
++---------------+------+
+4 rows in set (0.001 sec)
+
+mysql> SELECT COUNT(*) AS Total_Students
+    -> FROM Students;
++----------------+
+| Total_Students |
++----------------+
+|              4 |
++----------------+
+1 row in set (0.006 sec)
+
+mysql> SELECT Department,
+    ->        COUNT(*) AS Student_Count
+    -> FROM Students
+    -> GROUP BY Department;
++------------------------+---------------+
+| Department             | Student_Count |
++------------------------+---------------+
+| Computer Science       |             2 |
+| Information Technology |             1 |
+| Electronics            |             1 |
++------------------------+---------------+
+3 rows in set (0.009 sec)
+
+mysql> SELECT Department,
+    ->        COUNT(*) AS Student_Count
+    -> FROM Students
+    -> GROUP BY Department
+    -> ORDER BY Student_Count DESC;
++------------------------+---------------+
+| Department             | Student_Count |
++------------------------+---------------+
+| Computer Science       |             2 |
+| Information Technology |             1 |
+| Electronics            |             1 |
++------------------------+---------------+
+3 rows in set (0.004 sec)
+
+mysql> SELECT Department,
+    ->        AVG(CGPA) AS Average_CGPA
+    -> FROM Students
+    -> GROUP BY Department;
++------------------------+--------------+
+| Department             | Average_CGPA |
++------------------------+--------------+
+| Computer Science       |     8.475000 |
+| Information Technology |     9.100000 |
+| Electronics            |     7.850000 |
++------------------------+--------------+
+3 rows in set (0.004 sec)
+
+mysql> SHOW TABLES;
++------------------------------------+
+| Tables_in_recruitment_analytics_db |
++------------------------------------+
+| Students                           |
++------------------------------------+
+1 row in set (0.069 sec)
+
+mysql> -- ==========================================
+Query OK, 0 rows affected (0.020 sec)
+
+mysql> -- TABLE: Students
+Query OK, 0 rows affected (0.000 sec)
+
+mysql> -- ==========================================
+Query OK, 0 rows affected (0.000 sec)
+
+mysql> 
+mysql> -- Student_ID
+Query OK, 0 rows affected (0.000 sec)
+
+mysql> -- Student_Name
+Query OK, 0 rows affected (0.000 sec)
+
+mysql> -- Gender
+Query OK, 0 rows affected (0.000 sec)
+
+mysql> -- Department
+Query OK, 0 rows affected (0.000 sec)
+
+mysql> -- CGPA
+Query OK, 0 rows affected (0.000 sec)
+
+mysql> -- Graduation_Year
+Query OK, 0 rows affected (0.000 sec)
+
+mysql> -- Email
+Query OK, 0 rows affected (0.000 sec)
+
+mysql> -- Phone_Number
+Query OK, 0 rows affected (0.000 sec)
+
+mysql> -- College_Name
+Query OK, 0 rows affected (0.000 sec)
+
+mysql> -- Location
+Query OK, 0 rows affected (0.000 sec)
+
+mysql> DESCRIBE Students;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| Student_ID      | int          | NO   | PRI | NULL    |       |
+| Student_Name    | varchar(100) | NO   |     | NULL    |       |
+| Gender          | varchar(10)  | NO   |     | NULL    |       |
+| Department      | varchar(50)  | NO   |     | NULL    |       |
+| CGPA            | decimal(3,2) | NO   |     | NULL    |       |
+| Graduation_Year | int          | NO   |     | NULL    |       |
+| Email           | varchar(100) | NO   |     | NULL    |       |
+| Phone_Number    | varchar(15)  | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+8 rows in set (0.067 sec)
+
+mysql> DROP TABLE Students;
+Query OK, 0 rows affected (0.029 sec)
+
+mysql> SHOW TABLES;
+Empty set (0.004 sec)
+
+mysql> CREATE TABLE Students (
+    ->     Student_ID INT PRIMARY KEY,
+    ->     Student_Name VARCHAR(100) NOT NULL,
+    ->     Gender VARCHAR(10) NOT NULL,
+    ->     Department VARCHAR(50) NOT NULL,
+    ->     CGPA DECIMAL(3,2) NOT NULL,
+    ->     Graduation_Year INT NOT NULL,
+    ->     Email VARCHAR(100) UNIQUE NOT NULL,
+    ->     Phone_Number VARCHAR(15),
+    ->     College_Name VARCHAR(100) NOT NULL,
+    ->     Location VARCHAR(100)
+    -> );
+Query OK, 0 rows affected (0.023 sec)
+
+mysql> DESCRIBE Students;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| Student_ID      | int          | NO   | PRI | NULL    |       |
+| Student_Name    | varchar(100) | NO   |     | NULL    |       |
+| Gender          | varchar(10)  | NO   |     | NULL    |       |
+| Department      | varchar(50)  | NO   |     | NULL    |       |
+| CGPA            | decimal(3,2) | NO   |     | NULL    |       |
+| Graduation_Year | int          | NO   |     | NULL    |       |
+| Email           | varchar(100) | NO   | UNI | NULL    |       |
+| Phone_Number    | varchar(15)  | YES  |     | NULL    |       |
+| College_Name    | varchar(100) | NO   |     | NULL    |       |
+| Location        | varchar(100) | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+10 rows in set (0.004 sec)
+
+mysql> CREATE TABLE Companies (
+    ->     Company_ID INT PRIMARY KEY,
+    ->     Company_Name VARCHAR(100) NOT NULL,
+    ->     Industry VARCHAR(50) NOT NULL,
+    ->     Company_Size VARCHAR(20),
+    ->     Headquarters VARCHAR(100),
+    ->     Contact_Email VARCHAR(100) UNIQUE,
+    ->     Contact_Person VARCHAR(100),
+    ->     Hiring_Status VARCHAR(20) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.020 sec)
+
+mysql> SHOW TABLES;
++------------------------------------+
+| Tables_in_recruitment_analytics_db |
++------------------------------------+
+| Companies                          |
+| Students                           |
++------------------------------------+
+2 rows in set (0.005 sec)
+
+mysql> DESCRIBE Companies;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| Company_ID     | int          | NO   | PRI | NULL    |       |
+| Company_Name   | varchar(100) | NO   |     | NULL    |       |
+| Industry       | varchar(50)  | NO   |     | NULL    |       |
+| Company_Size   | varchar(20)  | YES  |     | NULL    |       |
+| Headquarters   | varchar(100) | YES  |     | NULL    |       |
+| Contact_Email  | varchar(100) | YES  | UNI | NULL    |       |
+| Contact_Person | varchar(100) | YES  |     | NULL    |       |
+| Hiring_Status  | varchar(20)  | NO   |     | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+8 rows in set (0.005 sec)
+
+mysql> CREATE TABLE Recruiters (
+    ->     Recruiter_ID INT PRIMARY KEY,
+    ->     Recruiter_Name VARCHAR(100) NOT NULL,
+    ->     Company_ID INT NOT NULL,
+    ->     Email VARCHAR(100) UNIQUE NOT NULL,
+    ->     Phone_Number VARCHAR(15),
+    ->     Designation VARCHAR(50),
+    -> 
+    ->     FOREIGN KEY (Company_ID)
+    ->     REFERENCES Companies(Company_ID)
+    -> );
+Query OK, 0 rows affected (0.093 sec)
+
+mysql> SHOW TABLES;
++------------------------------------+
+| Tables_in_recruitment_analytics_db |
++------------------------------------+
+| Companies                          |
+| Recruiters                         |
+| Students                           |
++------------------------------------+
+3 rows in set (0.019 sec)
+
+mysql> DESCRIBE Recruiters;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| Recruiter_ID   | int          | NO   | PRI | NULL    |       |
+| Recruiter_Name | varchar(100) | NO   |     | NULL    |       |
+| Company_ID     | int          | NO   | MUL | NULL    |       |
+| Email          | varchar(100) | NO   | UNI | NULL    |       |
+| Phone_Number   | varchar(15)  | YES  |     | NULL    |       |
+| Designation    | varchar(50)  | YES  |     | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+6 rows in set (0.007 sec)
+
+mysql> CREATE TABLE Jobs (
+    ->     Job_ID INT PRIMARY KEY,
+    ->     Company_ID INT NOT NULL,
+    ->     Recruiter_ID INT NOT NULL,
+    ->     Job_Title VARCHAR(100) NOT NULL,
+    ->     Job_Role VARCHAR(100),
+    ->     Job_Location VARCHAR(100),
+    ->     Salary_LPA DECIMAL(5,2),
+    ->     Required_CGPA DECIMAL(3,2),
+    ->     Open_Date DATE NOT NULL,
+    ->     Close_Date DATE,
+    ->     Job_Status VARCHAR(20) NOT NULL,
+    -> 
+    ->     FOREIGN KEY (Company_ID)
+    ->     REFERENCES Companies(Company_ID),
+    -> 
+    ->     FOREIGN KEY (Recruiter_ID)
+    ->     REFERENCES Recruiters(Recruiter_ID)
+    -> );
+Query OK, 0 rows affected (0.030 sec)
+
+mysql> SHOW TABLES;
++------------------------------------+
+| Tables_in_recruitment_analytics_db |
++------------------------------------+
+| Companies                          |
+| Jobs                               |
+| Recruiters                         |
+| Students                           |
++------------------------------------+
+4 rows in set (0.003 sec)
+
+mysql> DESCRIBE Jobs;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| Job_ID        | int          | NO   | PRI | NULL    |       |
+| Company_ID    | int          | NO   | MUL | NULL    |       |
+| Recruiter_ID  | int          | NO   | MUL | NULL    |       |
+| Job_Title     | varchar(100) | NO   |     | NULL    |       |
+| Job_Role      | varchar(100) | YES  |     | NULL    |       |
+| Job_Location  | varchar(100) | YES  |     | NULL    |       |
+| Salary_LPA    | decimal(5,2) | YES  |     | NULL    |       |
+| Required_CGPA | decimal(3,2) | YES  |     | NULL    |       |
+| Open_Date     | date         | NO   |     | NULL    |       |
+| Close_Date    | date         | YES  |     | NULL    |       |
+| Job_Status    | varchar(20)  | NO   |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+11 rows in set (0.003 sec)
+
+mysql> CREATE TABLE Applications (
+    ->     Application_ID INT PRIMARY KEY,
+    ->     Student_ID INT NOT NULL,
+    ->     Job_ID INT NOT NULL,
+    ->     Application_Date DATE NOT NULL,
+    ->     Application_Status VARCHAR(30) NOT NULL,
+    -> 
+    ->     FOREIGN KEY (Student_ID)
+    ->     REFERENCES Students(Student_ID),
+    -> 
+    ->     FOREIGN KEY (Job_ID)
+    ->     REFERENCES Jobs(Job_ID)
+    -> );
+Query OK, 0 rows affected (0.073 sec)
+
+mysql> 
+mysql> SHOW TABLES;
++------------------------------------+
+| Tables_in_recruitment_analytics_db |
++------------------------------------+
+| Applications                       |
+| Companies                          |
+| Jobs                               |
+| Recruiters                         |
+| Students                           |
++------------------------------------+
+5 rows in set (0.021 sec)
+
+mysql> DESCRIBE Applications;
++--------------------+-------------+------+-----+---------+-------+
+| Field              | Type        | Null | Key | Default | Extra |
++--------------------+-------------+------+-----+---------+-------+
+| Application_ID     | int         | NO   | PRI | NULL    |       |
+| Student_ID         | int         | NO   | MUL | NULL    |       |
+| Job_ID             | int         | NO   | MUL | NULL    |       |
+| Application_Date   | date        | NO   |     | NULL    |       |
+| Application_Status | varchar(30) | NO   |     | NULL    |       |
++--------------------+-------------+------+-----+---------+-------+
+5 rows in set (0.007 sec)
+
+mysql> CREATE TABLE Interviews (
+    ->     Interview_ID INT PRIMARY KEY,
+    ->     Application_ID INT NOT NULL,
+    ->     Interview_Date DATE NOT NULL,
+    ->     Interview_Round VARCHAR(50) NOT NULL,
+    ->     Interview_Status VARCHAR(30) NOT NULL,
+    ->     Feedback_Score DECIMAL(3,2),
+    -> 
+    ->     FOREIGN KEY (Application_ID)
+    ->     REFERENCES Applications(Application_ID)
+    -> );
+Query OK, 0 rows affected (0.019 sec)
+
+mysql> SHOW TABLES;
++------------------------------------+
+| Tables_in_recruitment_analytics_db |
++------------------------------------+
+| Applications                       |
+| Companies                          |
+| Interviews                         |
+| Jobs                               |
+| Recruiters                         |
+| Students                           |
++------------------------------------+
+6 rows in set (0.003 sec)
+
+mysql> DESCRIBE Interviews;
++------------------+--------------+------+-----+---------+-------+
+| Field            | Type         | Null | Key | Default | Extra |
++------------------+--------------+------+-----+---------+-------+
+| Interview_ID     | int          | NO   | PRI | NULL    |       |
+| Application_ID   | int          | NO   | MUL | NULL    |       |
+| Interview_Date   | date         | NO   |     | NULL    |       |
+| Interview_Round  | varchar(50)  | NO   |     | NULL    |       |
+| Interview_Status | varchar(30)  | NO   |     | NULL    |       |
+| Feedback_Score   | decimal(3,2) | YES  |     | NULL    |       |
++------------------+--------------+------+-----+---------+-------+
+6 rows in set (0.004 sec)
+
+mysql> CREATE TABLE Offers (
+    ->     Offer_ID INT PRIMARY KEY,
+    ->     Application_ID INT NOT NULL,
+    ->     Offer_Date DATE NOT NULL,
+    ->     Offered_Salary_LPA DECIMAL(5,2) NOT NULL,
+    ->     Offer_Status VARCHAR(30) NOT NULL,
+    -> 
+    ->     FOREIGN KEY (Application_ID)
+    ->     REFERENCES Applications(Application_ID)
+    -> );
+Query OK, 0 rows affected (0.027 sec)
+
+mysql> SHOW TABLES;
++------------------------------------+
+| Tables_in_recruitment_analytics_db |
++------------------------------------+
+| Applications                       |
+| Companies                          |
+| Interviews                         |
+| Jobs                               |
+| Offers                             |
+| Recruiters                         |
+| Students                           |
++------------------------------------+
+7 rows in set (0.003 sec)
+
+mysql> DESCRIBE Offers;
++--------------------+--------------+------+-----+---------+-------+
+| Field              | Type         | Null | Key | Default | Extra |
++--------------------+--------------+------+-----+---------+-------+
+| Offer_ID           | int          | NO   | PRI | NULL    |       |
+| Application_ID     | int          | NO   | MUL | NULL    |       |
+| Offer_Date         | date         | NO   |     | NULL    |       |
+| Offered_Salary_LPA | decimal(5,2) | NO   |     | NULL    |       |
+| Offer_Status       | varchar(30)  | NO   |     | NULL    |       |
++--------------------+--------------+------+-----+---------+-------+
+5 rows in set (0.004 sec)
+
+mysql> CREATE TABLE Hires (
+    ->     Hire_ID INT PRIMARY KEY,
+    ->     Offer_ID INT NOT NULL,
+    ->     Hire_Date DATE NOT NULL,
+    ->     Joining_Status VARCHAR(30) NOT NULL,
+    -> 
+    ->     FOREIGN KEY (Offer_ID)
+    ->     REFERENCES Offers(Offer_ID)
+    -> );
+Query OK, 0 rows affected (0.019 sec)
+
+mysql> SHOW TABLES;
++------------------------------------+
+| Tables_in_recruitment_analytics_db |
++------------------------------------+
+| Applications                       |
+| Companies                          |
+| Hires                              |
+| Interviews                         |
+| Jobs                               |
+| Offers                             |
+| Recruiters                         |
+| Students                           |
++------------------------------------+
+8 rows in set (0.004 sec)
+
+mysql> DESCRIBE Hires;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| Hire_ID        | int         | NO   | PRI | NULL    |       |
+| Offer_ID       | int         | NO   | MUL | NULL    |       |
+| Hire_Date      | date        | NO   |     | NULL    |       |
+| Joining_Status | varchar(30) | NO   |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+4 rows in set (0.003 sec)
+
+mysql> SHOW CREATE TABLE Students;
++----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
++----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Students | CREATE TABLE `Students` (
+  `Student_ID` int NOT NULL,
+  `Student_Name` varchar(100) NOT NULL,
+  `Gender` varchar(10) NOT NULL,
+  `Department` varchar(50) NOT NULL,
+  `CGPA` decimal(3,2) NOT NULL,
+  `Graduation_Year` int NOT NULL,
+  `Email` varchar(100) NOT NULL,
+  `Phone_Number` varchar(15) DEFAULT NULL,
+  `College_Name` varchar(100) NOT NULL,
+  `Location` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`Student_ID`),
+  UNIQUE KEY `Email` (`Email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.009 sec)
+
+mysql> SHOW CREATE TABLE Companies;
++-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table     | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
++-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Companies | CREATE TABLE `Companies` (
+  `Company_ID` int NOT NULL,
+  `Company_Name` varchar(100) NOT NULL,
+  `Industry` varchar(50) NOT NULL,
+  `Company_Size` varchar(20) DEFAULT NULL,
+  `Headquarters` varchar(100) DEFAULT NULL,
+  `Contact_Email` varchar(100) DEFAULT NULL,
+  `Contact_Person` varchar(100) DEFAULT NULL,
+  `Hiring_Status` varchar(20) NOT NULL,
+  PRIMARY KEY (`Company_ID`),
+  UNIQUE KEY `Contact_Email` (`Contact_Email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.004 sec)
+
+mysql> SHOW CREATE TABLE Applications;
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table        | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Applications | CREATE TABLE `Applications` (
+  `Application_ID` int NOT NULL,
+  `Student_ID` int NOT NULL,
+  `Job_ID` int NOT NULL,
+  `Application_Date` date NOT NULL,
+  `Application_Status` varchar(30) NOT NULL,
+  PRIMARY KEY (`Application_ID`),
+  KEY `Student_ID` (`Student_ID`),
+  KEY `Job_ID` (`Job_ID`),
+  CONSTRAINT `applications_ibfk_1` FOREIGN KEY (`Student_ID`) REFERENCES `Students` (`Student_ID`),
+  CONSTRAINT `applications_ibfk_2` FOREIGN KEY (`Job_ID`) REFERENCES `Jobs` (`Job_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.002 sec)
+
+mysql> SELECT COUNT(*) AS Total_Students
+    -> FROM Students;
++----------------+
+| Total_Students |
++----------------+
+|              0 |
++----------------+
+1 row in set (0.051 sec)
+
+mysql> INSERT INTO Students VALUES
+    -> (1001,'Karthick Raja','Male','Computer Science',8.75,2026,'karthick@example.com','9876543210','ABC Engineering College','Chennai'),
+    -> (1002,'Priya Sharma','Female','Information Technology',9.10,2026,'priya@example.com','9876543211','ABC Engineering College','Chennai'),
+    -> (1003,'Arjun Kumar','Male','Electronics',7.85,2026,'arjun@example.com','9876543212','ABC Engineering College','Coimbatore'),
+    -> (1004,'Meera Nair','Female','Computer Science',8.20,2026,'meera@example.com','9876543213','ABC Engineering College','Bangalore'),
+    -> (1005,'Rahul Verma','Male','Mechanical',7.95,2026,'rahul@example.com','9876543214','XYZ Institute','Chennai'),
+    -> (1006,'Sneha Iyer','Female','Computer Science',9.25,2026,'sneha@example.com','9876543215','XYZ Institute','Madurai'),
+    -> (1007,'Vikram Singh','Male','Information Technology',8.60,2026,'vikram@example.com','9876543216','XYZ Institute','Coimbatore'),
+    -> (1008,'Anjali Menon','Female','Electronics',8.40,2026,'anjali@example.com','9876543217','ABC Engineering College','Kochi'),
+    -> (1009,'Rohit Gupta','Male','Computer Science',7.70,2026,'rohit@example.com','9876543218','ABC Engineering College','Hyderabad'),
+    -> (1010,'Divya Krishnan','Female','Information Technology',8.95,2026,'divya@example.com','9876543219','XYZ Institute','Chennai'),
+    -> (1011,'Amit Patel','Male','Mechanical',7.80,2026,'amit@example.com','9876543220','XYZ Institute','Ahmedabad'),
+    -> (1012,'Neha Reddy','Female','Computer Science',9.05,2026,'neha@example.com','9876543221','ABC Engineering College','Hyderabad'),
+    -> (1013,'Kiran Rao','Male','Electronics',8.15,2026,'kiran@example.com','9876543222','ABC Engineering College','Bangalore'),
+    -> (1014,'Pooja Nair','Female','Information Technology',8.85,2026,'pooja@example.com','9876543223','XYZ Institute','Kochi'),
+    -> (1015,'Manoj Kumar','Male','Computer Science',8.10,2026,'manoj@example.com','9876543224','ABC Engineering College','Chennai'),
+    -> (1016,'Lavanya S','Female','Computer Science',9.30,2026,'lavanya@example.com','9876543225','ABC Engineering College','Madurai'),
+    -> (1017,'Suresh Babu','Male','Mechanical',7.60,2026,'suresh@example.com','9876543226','XYZ Institute','Coimbatore'),
+    -> (1018,'Keerthana R','Female','Electronics',8.70,2026,'keerthana@example.com','9876543227','ABC Engineering College','Chennai'),
+    -> (1019,'Harish Kumar','Male','Information Technology',8.35,2026,'harish@example.com','9876543228','XYZ Institute','Bangalore'),
+    -> (1020,'Nivetha P','Female','Computer Science',9.15,2026,'nivetha@example.com','9876543229','ABC Engineering College','Chennai');
+Query OK, 20 rows affected (0.024 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+mysql> SELECT COUNT(*) AS Total_Students
+    -> FROM Students;
++----------------+
+| Total_Students |
++----------------+
+|             20 |
++----------------+
+1 row in set (0.001 sec)
+
+mysql> SELECT * FROM Students
+    -> LIMIT 5;
++------------+---------------+--------+------------------------+------+-----------------+----------------------+--------------+-------------------------+------------+
+| Student_ID | Student_Name  | Gender | Department             | CGPA | Graduation_Year | Email                | Phone_Number | College_Name            | Location   |
++------------+---------------+--------+------------------------+------+-----------------+----------------------+--------------+-------------------------+------------+
+|       1001 | Karthick Raja | Male   | Computer Science       | 8.75 |            2026 | karthick@example.com | 9876543210   | ABC Engineering College | Chennai    |
+|       1002 | Priya Sharma  | Female | Information Technology | 9.10 |            2026 | priya@example.com    | 9876543211   | ABC Engineering College | Chennai    |
+|       1003 | Arjun Kumar   | Male   | Electronics            | 7.85 |            2026 | arjun@example.com    | 9876543212   | ABC Engineering College | Coimbatore |
+|       1004 | Meera Nair    | Female | Computer Science       | 8.20 |            2026 | meera@example.com    | 9876543213   | ABC Engineering College | Bangalore  |
+|       1005 | Rahul Verma   | Male   | Mechanical             | 7.95 |            2026 | rahul@example.com    | 9876543214   | XYZ Institute           | Chennai    |
++------------+---------------+--------+------------------------+------+-----------------+----------------------+--------------+-------------------------+------------+
+5 rows in set (0.003 sec)
+
+mysql> INSERT INTO Companies VALUES
+    -> (101,'TCS','IT Services','Large','Mumbai','hr@tcs.com','Ramesh Kumar','Active'),
+    -> (102,'Infosys','IT Services','Large','Bangalore','hr@infosys.com','Priya Menon','Active'),
+    -> (103,'Wipro','IT Services','Large','Bangalore','hr@wipro.com','Arun Nair','Active'),
+    -> (104,'HCLTech','IT Services','Large','Noida','hr@hcl.com','Deepa Sharma','Active'),
+    -> (105,'Cognizant','IT Services','Large','Chennai','hr@cognizant.com','Vikram Rao','Active'),
+    -> (106,'Accenture','Consulting','Large','Dublin','hr@accenture.com','Sneha Iyer','Active'),
+    -> (107,'Capgemini','Consulting','Large','Paris','hr@capgemini.com','Rahul Verma','Active'),
+    -> (108,'Zoho','Software','Medium','Chennai','hr@zoho.com','Karthik S','Active'),
+    -> (109,'Freshworks','Software','Medium','Chennai','hr@freshworks.com','Meera Nair','Active'),
+    -> (110,'Amazon','E-Commerce','Large','Seattle','hr@amazon.com','John Smith','Active');
+Query OK, 10 rows affected (0.045 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> SELECT COUNT(*) AS Total_Companies
+    -> FROM Companies;
++-----------------+
+| Total_Companies |
++-----------------+
+|              10 |
++-----------------+
+1 row in set (0.005 sec)
+
+mysql> SELECT Company_ID, Company_Name, Industry
+    -> FROM Companies;
++------------+--------------+-------------+
+| Company_ID | Company_Name | Industry    |
++------------+--------------+-------------+
+|        101 | TCS          | IT Services |
+|        102 | Infosys      | IT Services |
+|        103 | Wipro        | IT Services |
+|        104 | HCLTech      | IT Services |
+|        105 | Cognizant    | IT Services |
+|        106 | Accenture    | Consulting  |
+|        107 | Capgemini    | Consulting  |
+|        108 | Zoho         | Software    |
+|        109 | Freshworks   | Software    |
+|        110 | Amazon       | E-Commerce  |
++------------+--------------+-------------+
+10 rows in set (0.002 sec)
+
+mysql> INSERT INTO Recruiters VALUES
+    -> (201,'Ramesh Kumar',101,'ramesh@tcs.com','9876500001','Senior Recruiter'),
+    -> (202,'Priya Menon',102,'priya@infosys.com','9876500002','Recruitment Lead'),
+    -> (203,'Arun Nair',103,'arun@wipro.com','9876500003','HR Manager'),
+    -> (204,'Deepa Sharma',104,'deepa@hcl.com','9876500004','Recruitment Lead'),
+    -> (205,'Vikram Rao',105,'vikram@cognizant.com','9876500005','Senior Recruiter'),
+    -> (206,'Sneha Iyer',106,'sneha@accenture.com','9876500006','Talent Acquisition'),
+    -> (207,'Rahul Verma',107,'rahul@capgemini.com','9876500007','Recruitment Manager'),
+    -> (208,'Karthik S',108,'karthik@zoho.com','9876500008','HR Executive'),
+    -> (209,'Meera Nair',109,'meera@freshworks.com','9876500009','Talent Acquisition'),
+    -> (210,'John Smith',110,'john@amazon.com','9876500010','Senior Recruiter');
+Query OK, 10 rows affected (0.016 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> SELECT COUNT(*) AS Total_Recruiters
+    -> FROM Recruiters;
++------------------+
+| Total_Recruiters |
++------------------+
+|               10 |
++------------------+
+1 row in set (0.001 sec)
+
+mysql> INSERT INTO Jobs VALUES
+    -> (301,101,201,'Software Engineer','Backend Development','Chennai',7.50,7.00,'2026-01-01','2026-02-15','Open'),
+    -> (302,102,202,'Data Analyst','Analytics','Bangalore',8.00,7.50,'2026-01-05','2026-02-20','Open'),
+    -> (303,103,203,'System Engineer','Infrastructure','Hyderabad',6.50,7.00,'2026-01-10','2026-02-25','Open'),
+    -> (304,104,204,'Software Developer','Full Stack','Noida',8.50,8.00,'2026-01-15','2026-03-01','Open'),
+    -> (305,105,205,'Programmer Analyst','Application Development','Chennai',7.20,7.00,'2026-01-20','2026-03-05','Open'),
+    -> (306,106,206,'Business Analyst','Consulting','Bangalore',9.00,8.00,'2026-01-25','2026-03-10','Open'),
+    -> (307,107,207,'Associate Consultant','Consulting','Mumbai',8.20,7.50,'2026-02-01','2026-03-15','Open'),
+    -> (308,108,208,'Software Engineer','Product Development','Chennai',10.00,8.50,'2026-02-05','2026-03-20','Open'),
+    -> (309,109,209,'Data Engineer','Data Platform','Chennai',11.00,8.50,'2026-02-10','2026-03-25','Open'),
+    -> (310,110,210,'SDE-1','Software Development','Bangalore',15.00,8.50,'2026-02-15','2026-03-30','Open');
+Query OK, 10 rows affected (0.011 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> SELECT COUNT(*) AS Total_Jobs
+    -> FROM Jobs;
++------------+
+| Total_Jobs |
++------------+
+|         10 |
++------------+
+1 row in set (0.001 sec)
+
+mysql> SELECT COUNT(*) FROM Recruiters;
++----------+
+| COUNT(*) |
++----------+
+|       10 |
++----------+
+1 row in set (0.001 sec)
+
+mysql> SELECT COUNT(*) FROM Jobs;
++----------+
+| COUNT(*) |
++----------+
+|       10 |
++----------+
+1 row in set (0.001 sec)
+
+mysql> INSERT INTO Applications VALUES
+    -> (401,1001,301,'2026-01-10','Applied'),
+    -> (402,1002,302,'2026-01-11','Shortlisted'),
+    -> (403,1003,303,'2026-01-12','Rejected'),
+    -> (404,1004,304,'2026-01-13','Shortlisted'),
+    -> (405,1005,305,'2026-01-14','Applied'),
+    -> (406,1006,306,'2026-01-15','Shortlisted'),
+    -> (407,1007,307,'2026-01-16','Applied'),
+    -> (408,1008,308,'2026-01-17','Shortlisted'),
+    -> (409,1009,309,'2026-01-18','Rejected'),
+    -> (410,1010,310,'2026-01-19','Shortlisted'),
+    -> (411,1011,301,'2026-01-20','Applied'),
+    -> (412,1012,302,'2026-01-21','Shortlisted'),
+    -> (413,1013,303,'2026-01-22','Applied'),
+    -> (414,1014,304,'2026-01-23','Shortlisted'),
+    -> (415,1015,305,'2026-01-24','Applied');
+Query OK, 15 rows affected (0.006 sec)
+Records: 15  Duplicates: 0  Warnings: 0
+
+mysql> SELECT COUNT(*) FROM Applications;
++----------+
+| COUNT(*) |
++----------+
+|       15 |
++----------+
+1 row in set (0.001 sec)
+
+mysql> INSERT INTO Interviews VALUES
+    -> (501,402,'2026-02-01','Technical','Passed',8.5),
+    -> (502,404,'2026-02-02','Technical','Passed',8.0),
+    -> (503,406,'2026-02-03','Technical','Passed',9.0),
+    -> (504,408,'2026-02-04','Technical','Failed',6.5),
+    -> (505,410,'2026-02-05','Technical','Passed',8.8),
+    -> (506,412,'2026-02-06','Technical','Passed',8.6),
+    -> (507,414,'2026-02-07','Technical','Passed',8.2);
+Query OK, 7 rows affected (0.012 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> SELECT COUNT(*) FROM Interviews;
++----------+
+| COUNT(*) |
++----------+
+|        7 |
++----------+
+1 row in set (0.001 sec)
+
+mysql> INSERT INTO Offers VALUES
+    -> (601,402,'2026-02-15',8.00,'Accepted'),
+    -> (602,404,'2026-02-16',8.50,'Accepted'),
+    -> (603,406,'2026-02-17',9.00,'Accepted'),
+    -> (604,410,'2026-02-18',15.00,'Accepted'),
+    -> (605,412,'2026-02-19',8.00,'Rejected'),
+    -> (606,414,'2026-02-20',8.50,'Accepted');
+Query OK, 6 rows affected (0.012 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> SELECT COUNT(*) FROM Offers;
++----------+
+| COUNT(*) |
++----------+
+|        6 |
++----------+
+1 row in set (0.001 sec)
+
+mysql> INSERT INTO Hires VALUES
+    -> (701,601,'2026-03-01','Joined'),
+    -> (702,602,'2026-03-02','Joined'),
+    -> (703,603,'2026-03-03','Joined'),
+    -> (704,604,'2026-03-04','Joined'),
+    -> (705,606,'2026-03-05','Joined');
+Query OK, 5 rows affected (0.004 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT COUNT(*) FROM Hires;
++----------+
+| COUNT(*) |
++----------+
+|        5 |
++----------+
+1 row in set (0.000 sec)
+
+mysql> SELECT COUNT(*) FROM Students;
++----------+
+| COUNT(*) |
++----------+
+|       20 |
++----------+
+1 row in set (0.001 sec)
+
+mysql> SELECT COUNT(*) FROM Companies;
++----------+
+| COUNT(*) |
++----------+
+|       10 |
++----------+
+1 row in set (0.000 sec)
+
+mysql> SELECT COUNT(*) FROM Recruiters;
++----------+
+| COUNT(*) |
++----------+
+|       10 |
++----------+
+1 row in set (0.000 sec)
+
+mysql> SELECT COUNT(*) FROM Jobs;
++----------+
+| COUNT(*) |
++----------+
+|       10 |
++----------+
+1 row in set (0.000 sec)
+
+mysql> SELECT COUNT(*) FROM Applications;
++----------+
+| COUNT(*) |
++----------+
+|       15 |
++----------+
+1 row in set (0.000 sec)
+
+mysql> SELECT COUNT(*) FROM Interviews;
++----------+
+| COUNT(*) |
++----------+
+|        7 |
++----------+
+1 row in set (0.000 sec)
+
+mysql> SELECT COUNT(*) FROM Offers;
++----------+
+| COUNT(*) |
++----------+
+|        6 |
++----------+
+1 row in set (0.000 sec)
+
+mysql> SELECT COUNT(*) FROM Hires;
++----------+
+| COUNT(*) |
++----------+
+|        5 |
++----------+
+1 row in set (0.001 sec)
+
+mysql> SELECT COUNT(*) AS Total_Applications
+    -> FROM Applications;
++--------------------+
+| Total_Applications |
++--------------------+
+|                 15 |
++--------------------+
+1 row in set (0.045 sec)
+
+mysql> SELECT Application_Status,
+    ->        COUNT(*) AS Application_Count
+    -> FROM Applications
+    -> GROUP BY Application_Status
+    -> ORDER BY Application_Count DESC;
++--------------------+-------------------+
+| Application_Status | Application_Count |
++--------------------+-------------------+
+| Shortlisted        |                 7 |
+| Applied            |                 6 |
+| Rejected           |                 2 |
++--------------------+-------------------+
+3 rows in set (0.011 sec)
+
+mysql> SELECT s.Department,
+    ->        COUNT(*) AS Applications
+    -> FROM Applications a
+    -> JOIN Students s
+    -> ON a.Student_ID = s.Student_ID
+    -> GROUP BY s.Department
+    -> ORDER BY Applications DESC;
++------------------------+--------------+
+| Department             | Applications |
++------------------------+--------------+
+| Computer Science       |            6 |
+| Information Technology |            4 |
+| Electronics            |            3 |
+| Mechanical             |            2 |
++------------------------+--------------+
+4 rows in set (0.004 sec)
+
+mysql> SELECT c.Company_Name,
+    ->        COUNT(*) AS Applications
+    -> FROM Applications a
+    -> JOIN Jobs j
+    -> ON a.Job_ID = j.Job_ID
+    -> JOIN Companies c
+    -> ON j.Company_ID = c.Company_ID
+    -> GROUP BY c.Company_Name
+    -> ORDER BY Applications DESC;
++--------------+--------------+
+| Company_Name | Applications |
++--------------+--------------+
+| TCS          |            2 |
+| Infosys      |            2 |
+| Wipro        |            2 |
+| HCLTech      |            2 |
+| Cognizant    |            2 |
+| Accenture    |            1 |
+| Capgemini    |            1 |
+| Zoho         |            1 |
+| Freshworks   |            1 |
+| Amazon       |            1 |
++--------------+--------------+
+10 rows in set (0.003 sec)
+
+mysql> SELECT
+    ->     (SELECT COUNT(*) FROM Applications) AS Applications,
+    ->     (SELECT COUNT(*) FROM Interviews) AS Interviews,
+    ->     (SELECT COUNT(*) FROM Offers) AS Offers,
+    ->     (SELECT COUNT(*) FROM Hires) AS Hires;
++--------------+------------+--------+-------+
+| Applications | Interviews | Offers | Hires |
++--------------+------------+--------+-------+
+|           15 |          7 |      6 |     5 |
++--------------+------------+--------+-------+
+1 row in set (0.003 sec)
+
+mysql> SELECT
+    -> ROUND(
+    -> ((SELECT COUNT(*) FROM Interviews) * 100.0 /
+    -> (SELECT COUNT(*) FROM Applications)),2
+    -> ) AS App_To_Interview_Percent,
+    -> 
+    -> ROUND(
+    -> ((SELECT COUNT(*) FROM Offers) * 100.0 /
+    -> (SELECT COUNT(*) FROM Interviews)),2
+    -> ) AS Interview_To_Offer_Percent,
+    -> 
+    -> ROUND(
+    -> ((SELECT COUNT(*) FROM Hires) * 100.0 /
+    -> (SELECT COUNT(*) FROM Offers)),2
+    -> ) AS Offer_To_Hire_Percent;
++--------------------------+----------------------------+-----------------------+
+| App_To_Interview_Percent | Interview_To_Offer_Percent | Offer_To_Hire_Percent |
++--------------------------+----------------------------+-----------------------+
+|                    46.67 |                      85.71 |                 83.33 |
++--------------------------+----------------------------+-----------------------+
+1 row in set (0.013 sec)
+
+mysql> SELECT r.Recruiter_Name,
+    ->        COUNT(j.Job_ID) AS Jobs_Managed
+    -> FROM Recruiters r
+    -> LEFT JOIN Jobs j
+    -> ON r.Recruiter_ID = j.Recruiter_ID
+    -> GROUP BY r.Recruiter_Name
+    -> ORDER BY Jobs_Managed DESC;
++----------------+--------------+
+| Recruiter_Name | Jobs_Managed |
++----------------+--------------+
+| Ramesh Kumar   |            1 |
+| Priya Menon    |            1 |
+| Arun Nair      |            1 |
+| Deepa Sharma   |            1 |
+| Vikram Rao     |            1 |
+| Sneha Iyer     |            1 |
+| Rahul Verma    |            1 |
+| Karthik S      |            1 |
+| Meera Nair     |            1 |
+| John Smith     |            1 |
++----------------+--------------+
+10 rows in set (0.002 sec)
+
+mysql> SELECT
+    -> ROUND(
+    -> (
+    -> COUNT(CASE WHEN Offer_Status='Accepted' THEN 1 END)
+    -> * 100.0
+    -> /
+    -> COUNT(*)
+    -> ),2
+    -> ) AS Offer_Acceptance_Rate
+    -> FROM Offers;
++-----------------------+
+| Offer_Acceptance_Rate |
++-----------------------+
+|                 83.33 |
++-----------------------+
+1 row in set (0.005 sec)
+
+mysql> SELECT
+    -> Department,
+    -> ROUND(AVG(CGPA),2) AS Average_CGPA
+    -> FROM Students
+    -> GROUP BY Department
+    -> ORDER BY Average_CGPA DESC;
++------------------------+--------------+
+| Department             | Average_CGPA |
++------------------------+--------------+
+| Information Technology |         8.77 |
+| Computer Science       |         8.69 |
+| Electronics            |         8.28 |
+| Mechanical             |         7.78 |
++------------------------+--------------+
+4 rows in set (0.003 sec)
+
+mysql> SELECT
+    -> c.Company_Name,
+    -> COUNT(h.Hire_ID) AS Total_Hires
+    -> FROM Hires h
+    -> JOIN Offers o
+    -> ON h.Offer_ID = o.Offer_ID
+    -> JOIN Applications a
+    -> ON o.Application_ID = a.Application_ID
+    -> JOIN Jobs j
+    -> ON a.Job_ID = j.Job_ID
+    -> JOIN Companies c
+    -> ON j.Company_ID = c.Company_ID
+    -> GROUP BY c.Company_Name
+    -> ORDER BY Total_Hires DESC;
++--------------+-------------+
+| Company_Name | Total_Hires |
++--------------+-------------+
+| HCLTech      |           2 |
+| Infosys      |           1 |
+| Accenture    |           1 |
+| Amazon       |           1 |
++--------------+-------------+
+4 rows in set (0.002 sec)
+
+mysql> SELECT 'Applications' AS Stage, COUNT(*) AS Count_Value
+    -> FROM Applications
+    -> 
+    -> UNION ALL
+    -> 
+    -> SELECT 'Interviews', COUNT(*)
+    -> FROM Interviews
+    -> 
+    -> UNION ALL
+    -> 
+    -> SELECT 'Offers', COUNT(*)
+    -> FROM Offers
+    -> 
+    -> UNION ALL
+    -> 
+    -> SELECT 'Hires', COUNT(*)
+    -> FROM Hires;
++--------------+-------------+
+| Stage        | Count_Value |
++--------------+-------------+
+| Applications |          15 |
+| Interviews   |           7 |
+| Offers       |           6 |
+| Hires        |           5 |
++--------------+-------------+
+4 rows in set (0.003 sec)
+
+mysql> SELECT
+    -> Job_Title,
+    -> Company_ID,
+    -> Salary_LPA
+    -> FROM Jobs
+    -> ORDER BY Salary_LPA DESC
+    -> LIMIT 5;
++--------------------+------------+------------+
+| Job_Title          | Company_ID | Salary_LPA |
++--------------------+------------+------------+
+| SDE-1              |        110 |      15.00 |
+| Data Engineer      |        109 |      11.00 |
+| Software Engineer  |        108 |      10.00 |
+| Business Analyst   |        106 |       9.00 |
+| Software Developer |        104 |       8.50 |
++--------------------+------------+------------+
+5 rows in set (0.002 sec)
+
+mysql> python3 --version
+    -> .quit
+    -> 
